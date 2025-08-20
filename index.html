@@ -26,7 +26,7 @@
       padding: 1.5em;
       min-height: 100vh;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), 
-                  url('img/fondo.jpg');
+                  url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
       background-position: center center;
       background-size: cover;
       position: relative;
@@ -634,7 +634,7 @@
   <div class="notification" id="notification"></div>
   
   <!-- Botón de WhatsApp flotante -->
-  <a href="https://wa.me/51933251853" class="whatsapp-button" target="_blank">
+  <a href="https://wa.me/51947160549" class="whatsapp-button" target="_blank">
     <i class="fab fa-whatsapp"></i>
   </a>
   
@@ -644,10 +644,10 @@
         <i class="fas fa-bars menu-icon"></i>
         <div class="links-div">
           <ul>
-            <li><a href="https://wa.me/51933251853" target="_blank">Api Reniec</a></li>
-            <li><a href="https://wa.me/51933251853" target="_blank">Api Sunat</a></li>
-            <li><a href="https://wa.me/51933251853" target="_blank">Api Facturacion</a></li>
-            <li><a href="https://wa.me/51933251853" target="_blank">Scraping</a></li>
+            <li><a href="https://wa.me/51947160549" target="_blank">Api Reniec</a></li>
+            <li><a href="https://wa.me/51947160549" target="_blank">Api Sunat</a></li>
+            <li><a href="https://wa.me/51947160549" target="_blank">Api Facturacion</a></li>
+            <li><a href="https://wa.me/51947160549" target="_blank">Scraping</a></li>
           </ul>
         </div>
       </div>
@@ -778,10 +778,11 @@
           </div>
         `;
       } else {
+        // Para DNI - usando la estructura correcta de tu API
         resultsContainer.innerHTML = `
           <div class="result-header dni-section">
-            <h2 class="result-title">${data.apellido_paterno} ${data.apellido_materno}</h2>
-            <div class="result-type">DNI: ${data.numero}</div>
+            <h2 class="result-title">${data.paterno} ${data.materno}</h2>
+            <div class="result-type">DNI: ${data.dni}</div>
           </div>
           
           <div class="data-section">
@@ -793,11 +794,11 @@
               </div>
               <div class="data-item">
                 <span class="data-label">Apellido Paterno</span>
-                <span class="data-value">${data.apellido_paterno}</span>
+                <span class="data-value">${data.paterno}</span>
               </div>
               <div class="data-item">
                 <span class="data-label">Apellido Materno</span>
-                <span class="data-value">${data.apellido_materno}</span>
+                <span class="data-value">${data.materno}</span>
               </div>
             </div>
           </div>
@@ -878,44 +879,30 @@
         
         if (query.length === 8) {
           // API para DNI
-          apiUrl = `http://127.0.0.1:5000/${query}`;
+          apiUrl = `https://fin-horrible-noon-nomination.trycloudflare.com/dni/${query}?token=3ee3448609423402769833bcc0e71bb9`;
           isRUC = false;
         } else {
           // API para RUC
-          apiUrl = `http://localhost:3002/ruc/${query}`;
+          apiUrl = `https://surgical-reg-interaction-activists.trycloudflare.com/ruc/${query}?token=f97d84a6d8a22138f61ba4004c608dee`;
           isRUC = true;
         }
         
         const response = await fetch(apiUrl);
         
         if (!response.ok) {
-          throw new Error('Error en la respuesta del servidor');
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Error en la respuesta del servidor');
         }
         
         const data = await response.json();
         
-        if (isRUC || data.success) {
-          if (isRUC) {
-            // Para RUC
-            showResults({
-              ruc: query,
-              razon_social: data.razon_social || 'No disponible',
-              direccion: data.direccion || 'No disponible'
-            }, true);
-          } else {
-            // Para DNI
-            showResults(data.data, false);
-          }
-          
-          showNotification('✅ Resultados encontrados', false);
-        } else {
-          showError('No se encontraron resultados');
-          showNotification('❌ No se encontraron resultados', true);
-        }
+        // Para DNI, la respuesta es directa, para RUC también
+        showResults(data, isRUC);
+        showNotification('✅ Resultados encontrados', false);
       } catch (error) {
         console.error('Error:', error);
-        showError('Error al conectar con el servidor');
-        showNotification('❌ Error al conectar con el servidor', true);
+        showError(error.message || 'Error al conectar con el servidor');
+        showNotification('❌ ' + error.message, true);
       }
     }
     
@@ -923,7 +910,16 @@
     apiCards.forEach(card => {
       card.addEventListener('click', () => {
         const service = card.getAttribute('data-service');
-        window.open(`https://wa.me/51933251853?text=Hola,%20estoy%20interesado%20en%20el%20servicio%20${encodeURIComponent(service)}`, '_blank');
+        let message;
+        
+        // Mensaje específico para Api Sunat
+        if (service === "Api Sunat") {
+          message = "Hola, estoy interesado en el servicio /ruc";
+        } else {
+          message = `Hola, estoy interesado en el servicio ${service}`;
+        }
+        
+        window.open(`https://wa.me/51947160549?text=${encodeURIComponent(message)}`, '_blank');
       });
     });
     
