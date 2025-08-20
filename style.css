@@ -1,451 +1,949 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michemical DataLab</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow-x: hidden;
-  background: #0f1b31;
-}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background: #0f1b31;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
 
-p {
-  color: #fff;
-  font-size: 1.2rem;
-}
+    .main {
+      padding: 1.5em;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), 
+                  url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+      background-position: center center;
+      background-size: cover;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
 
-a {
-  color: white;
-  text-decoration: none;
-}
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      z-index: 100;
+    }
 
-ul li {
-  list-style: none;
-  display: inline-block;
-}
+    .menu-icon {
+      font-size: 2em;
+      color: white;
+      cursor: pointer;
+      z-index: 101;
+      padding: 10px;
+    }
 
-.main {
-  padding: 1.5em;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url("img/fondo.jpg");
-  background-position: center center;
-  background-size: cover;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
+    .links-div {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease-in-out;
+      padding: 70px 20px 20px;
+      z-index: 99;
+      overflow-y: auto;
+    }
 
-.main .top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    .links-div.active {
+      transform: translateX(0);
+    }
 
-.main .top .fa {
-  font-size: 2em;
-  color: white;
-  cursor: pointer;
-  visibility: hidden;
-  transition: transform 0.3s ease;
-  z-index: 101;
-}
+    .links-div ul {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-.main .top .links-div {
-  z-index: 100;
-  width: 300px;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  transform: translateX(-100%);
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
-  backdrop-filter: blur(5px);
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 3px;
-  transition: transform 0.4s ease-in-out;
-  padding: 2em 0;
-  overflow-y: auto;
-}
+    .links-div ul li {
+      list-style: none;
+    }
 
-.main .top .links-div .links {
-  margin-left: 3em;
-}
+    .links-div ul li a {
+      color: #333;
+      font-weight: bold;
+      font-size: 1.3rem;
+      text-decoration: none;
+      display: block;
+      padding: 12px 15px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
 
-.main .top .links-div .links li {
-  display: block;
-  margin-top: 1.5em;
-}
+    .links-div ul li a:hover {
+      background: #f0f0f0;
+      color: #000;
+    }
 
-.main .top .links-div .links li a {
-  color: #505050;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: color 0.3s;
-}
+    .center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      text-align: center;
+    }
 
-.main .top .links-div .links li a:hover {
-  color: #000;
-}
+    .hero-text {
+      margin-bottom: 40px;
+      max-width: 800px;
+    }
 
-.main .top .links-div.active {
-  transform: translateX(0);
-}
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: white;
+      margin-bottom: 15px;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      font-weight: 800;
+      line-height: 1.2;
+    }
 
-.main .top .signup li {
-  margin-left: 1em;
-}
+    .hero-text p {
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto 10px;
+    }
 
-.main .top .signup li a {
-  padding: .35em .85em;
-  background-color: transparent;
-  border: 1px solid white;
-  border-radius: 6px;
-  transition: 300ms;
-}
+    .hero-text .subtitle {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #3498db;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
 
-.main .top .signup li a:hover {
-  background-color: white;
-  color: black;
-}
+    .search-container {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
 
-.main .center {
-  position: relative;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  padding: 2em 1em;
-}
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
 
-/* Título centrado */
-.hero-text {
-  text-align: center;
-  margin-bottom: 3rem;
-  width: 100%;
-}
+    .search {
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 15px;
+      border: none;
+      font-size: 1.2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      outline: none;
+      transition: all 0.3s;
+    }
 
-.hero-text h1 {
-  font-weight: bold;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: white;
-  margin-bottom: 1rem;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  letter-spacing: 1px;
-}
+    .search:focus {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
 
-.hero-text p {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  max-width: 600px;
-  margin: 0 auto;
-  opacity: 0.9;
-}
+    #searchIcon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #3498db;
+      font-size: 1.4rem;
+      background: white;
+      padding: 5px;
+      border-radius: 50%;
+    }
 
-.main .center .search-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 700px;
-}
+    .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
 
-.main .center .search-wrapper {
-  position: relative;
-  width: 100%;
-  margin-bottom: 2rem;
-}
+    .social ul {
+      display: flex;
+      gap: 20px;
+    }
 
-.main .center input {
-  outline: none;
-  border: none;
-  width: 100%;
-  padding: 1.2rem;
-  border-radius: 12px;
-  font-size: 1.1em;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-}
+    .social ul li {
+      list-style: none;
+    }
 
-.main .center input:focus {
-  border-color: #3498db;
-}
+    .social ul li a {
+      color: white;
+      font-size: 1.8rem;
+      transition: transform 0.3s;
+    }
 
-.main .center span {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #3498db;
-  font-size: 1.3rem;
-}
+    .social ul li a:hover {
+      transform: translateY(-5px);
+    }
 
-.bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: calc(100% - 3em);
-  padding: 1.5em;
-  position: relative;
-  margin-top: auto;
-}
+    .bottom a {
+      color: white;
+      font-size: 1.1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
 
-.bottom .social ul li {
-  margin-right: 1.5em;
-}
+    .bottom a:hover {
+      text-decoration: underline;
+    }
 
-.bottom .social ul li a i {
-  color: white;
-  font-size: 1.7rem;
-  transition: transform 0.3s;
-}
+    /* Estilos para resultados */
+    #resultsContainer {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 20px auto;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+      display: none;
+      z-index: 50;
+      position: relative;
+      animation: fadeIn 0.4s ease;
+    }
 
-.bottom .social ul li a i:hover {
-  transform: translateY(-5px);
-}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-@media (max-width: 768px) {
-  .main .top .fa {
-    visibility: visible;
-  }
+    .result-header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 2px solid #f0f0f0;
+    }
 
-  .main .top .signup {
-    display: none;
-  }
+    .result-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      line-height: 1.3;
+      word-break: break-word;
+      color: #2c3e50;
+    }
+
+    .result-type {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-top: 5px;
+      color: #7f8c8d;
+    }
+
+    .data-section {
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      font-weight: 700;
+      text-align: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      color: #3498db;
+    }
+
+    .data-list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .data-item {
+      display: block;
+      width: 100%;
+    }
+
+    .data-label {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #5a6872;
+      display: block;
+    }
+
+    .data-value {
+      font-size: 1.4rem;
+      font-weight: 500;
+      word-break: break-word;
+      line-height: 1.5;
+      padding: 15px;
+      background: rgba(240, 240, 240, 0.5);
+      border-radius: 12px;
+      display: block;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Para DNI */
+    .dni-section .section-title {
+      color: #e74c3c;
+      border-bottom-color: rgba(231, 76, 60, 0.3);
+    }
+
+    .dni-section .data-label {
+      color: #e74c3c;
+    }
+
+    .dni-section .data-value {
+      border-left: 4px solid #e74c3c;
+    }
+
+    /* Para RUC */
+    .ruc-section .section-title {
+      color: #27ae60;
+      border-bottom-color: rgba(39, 174, 96, 0.3);
+    }
+
+    .ruc-section .data-label {
+      color: #27ae60;
+    }
+
+    .ruc-section .data-value {
+      border-left: 4px solid #27ae60;
+    }
+
+    /* Loader y errores */
+    .loader {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .loader i {
+      font-size: 3.5rem;
+      color: #3498db;
+      animation: spin 1.5s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-weight: 500;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .error-message i {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    /* Nuevos estilos añadidos */
+    .notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #e74c3c;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: none;
+      font-weight: 500;
+      animation: slideDown 0.4s ease;
+    }
+    
+    @keyframes slideDown {
+      from { top: -50px; opacity: 0; }
+      to { top: 20px; opacity: 1; }
+    }
+    
+    .result-footer {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    .new-search-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .new-search-btn:hover {
+      background: #2980b9;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* API Cards Section */
+    .api-section {
+      width: 100%;
+      max-width: 1000px;
+      margin: 30px auto 0;
+      padding: 20px;
+    }
+
+    .api-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .api-card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 25px 20px;
+      text-align: center;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .api-card:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .api-card i {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: #3498db;
+    }
+
+    .api-card h3 {
+      font-size: 1.6rem;
+      color: white;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .api-card p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .api-section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      color: white;
+      margin-bottom: 10px;
+      font-weight: 700;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .api-section-subtitle {
+      text-align: center;
+      font-size: 1.3rem;
+      color: #3498db;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
+    /* Etiquetas premium/próximamente */
+    .premium-badge {
+      position: absolute;
+      top: 15px;
+      right: -30px;
+      background: linear-gradient(45deg, #ffc107, #ff9800);
+      color: #000;
+      padding: 5px 35px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transform: rotate(45deg);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .coming-soon-badge {
+      position: absolute;
+      top: 15px;
+      right: -30px;
+      background: linear-gradient(45deg, #9c27b0, #673ab7);
+      color: white;
+      padding: 5px 35px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transform: rotate(45deg);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Botón de WhatsApp */
+    .whatsapp-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .whatsapp-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .whatsapp-button i {
+      color: white;
+      font-size: 2rem;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-text p {
+        font-size: 1.2rem;
+      }
+      
+      .hero-text .subtitle {
+        font-size: 1.5rem;
+      }
+      
+      .search {
+        padding: 15px;
+        font-size: 1.1rem;
+      }
+      
+      .result-title {
+        font-size: 1.8rem;
+      }
+      
+      .result-type {
+        font-size: 1.3rem;
+      }
+      
+      .section-title {
+        font-size: 1.4rem;
+      }
+      
+      .data-label {
+        font-size: 1.1rem;
+      }
+      
+      .data-value {
+        font-size: 1.2rem;
+        padding: 12px;
+      }
+      
+      .bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .api-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      
+      .result-title {
+        font-size: 1.6rem;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+      }
+      
+      #resultsContainer {
+        padding: 20px 15px;
+      }
+
+      .notification {
+        width: 90%;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 10px 15px;
+      }
+      
+      .api-card {
+        padding: 20px 15px;
+      }
+      
+      .api-card h3 {
+        font-size: 1.4rem;
+      }
+      
+      .whatsapp-button {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+      }
+      
+      .whatsapp-button i {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="notification" id="notification"></div>
   
-  .main .center {
-    padding: 1em;
-  }
+  <!-- Botón de WhatsApp flotante -->
+  <a href="https://wa.me/51947160549" class="whatsapp-button" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
   
-  .hero-text {
-    margin-bottom: 2rem;
-  }
-  
-  .hero-text h1 {
-    font-size: clamp(2.2rem, 6vw, 3.5rem);
-  }
-}
+  <main class="main">
+    <div class="top">
+      <div class="nav">
+        <i class="fas fa-bars menu-icon"></i>
+        <div class="links-div">
+          <ul>
+            <li><a href="https://wa.me/51947160549" target="_blank">Api Reniec</a></li>
+            <li><a href="https://wa.me/51947160549" target="_blank">Api Sunat</a></li>
+            <li><a href="https://wa.me/51947160549" target="_blank">Api Facturacion</a></li>
+            <li><a href="https://wa.me/51947160549" target="_blank">Scraping</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-@media (max-width: 580px) {
-  .main .center {
-    row-gap: 1em;
-  }
-  
-  .main .top .links-div {
-    width: 100%;
-    border-radius: 0;
-  }
-  
-  .bottom {
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: center;
-    padding: 1em;
-  }
-  
-  .bottom .social {
-    order: 2;
-  }
-  
-  .bottom a {
-    order: 1;
-  }
-  
-  .main .center input {
-    padding: 1rem;
-  }
-}
+    <div class="center">
+      <div class="hero-text">
+        <h1>Michemical DataLab</h1>
+        <p class="subtitle">Nosotros somos los mejores</p>
+        <p>Encuentra lo que buscas...</p>
+      </div>
 
-/* ===== ESTILOS CORREGIDOS PARA RESULTADOS ===== */
-#resultsContainer {
-  width: 100%;
-  max-width: 700px;
-  background: rgba(255, 255, 255, 0.97);
-  border-radius: 15px;
-  padding: 30px;
-  margin: 20px auto 30px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-  display: none;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
-}
+      <div class="search-container">
+        <div class="search-wrapper">
+          <input type="text" class="search" id="searchInput" placeholder="Escribe RUC o DNI...">
+          <span id="searchIcon"><i class="fas fa-search"></i></span>
+        </div>
+        <div id="resultsContainer"></div>
+      </div>
+      
+      <!-- Sección de APIs -->
+      <div class="api-section">
+        <h2 class="api-section-title">Nuestros Servicios</h2>
+        <p class="api-section-subtitle">Soluciones tecnológicas para tus necesidades</p>
+        
+        <div class="api-grid">
+          <div class="api-card" data-service="Api Reniec">
+            <i class="fas fa-id-card"></i>
+            <h3>Api Reniec</h3>
+            <p>Acceso a datos de identificación verificados directamente desde RENIEC</p>
+            <div class="premium-badge">PREMIUM</div>
+          </div>
+          
+          <div class="api-card" data-service="Api Sunat">
+            <i class="fas fa-building"></i>
+            <h3>Api Sunat</h3>
+            <p>Consulta de RUCs y datos tributarios de empresas registradas en SUNAT</p>
+            <div class="premium-badge">PREMIUM</div>
+          </div>
+          
+          <div class="api-card" data-service="Api Facturación">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <h3>Api Facturación</h3>
+            <p>Solución completa para la emisión de comprobantes electrónicos</p>
+            <div class="coming-soon-badge">PRÓXIMAMENTE</div>
+          </div>
+          
+          <div class="api-card" data-service="Scraping">
+            <i class="fas fa-database"></i>
+            <h3>Scraping</h3>
+            <p>Extracción y análisis de datos de diversas fuentes en internet</p>
+            <div class="premium-badge">PREMIUM</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-.result-header {
-  text-align: center;
-  margin-bottom: 25px;
-  padding-bottom: 25px;
-  border-bottom: 2px solid #f0f0f0;
-}
+    <div class="bottom">
+      <div class="social">
+        <ul>
+          <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+      </div>
+      <a href="#"><p>¿Conoces nuestra newsletter?</p></a>
+    </div>
+  </main>
 
-.result-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0 0 10px 0;
-  line-height: 1.3;
-  word-break: break-word;
-}
-
-.result-type {
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin-top: 5px;
-}
-
-.data-section {
-  margin-bottom: 25px;
-}
-
-.section-title {
-  font-size: 1.5rem;
-  margin-bottom: 25px;
-  font-weight: 700;
-  text-align: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.data-list {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.data-item {
-  display: block;
-  width: 100%;
-}
-
-.data-label {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #5a6872;
-  display: block;
-}
-
-.data-value {
-  font-size: 1.3rem;
-  font-weight: 500;
-  word-break: break-word;
-  line-height: 1.5;
-  padding: 10px;
-  background: rgba(240, 240, 240, 0.5);
-  border-radius: 8px;
-  display: block;
-  width: 100%;
-}
-
-/* Para DNI */
-.dni-section .result-title {
-  color: #e74c3c;
-}
-
-.dni-section .section-title {
-  color: #e74c3c;
-  border-bottom-color: rgba(231, 76, 60, 0.3);
-}
-
-.dni-section .data-label {
-  color: #e74c3c;
-}
-
-.dni-section .data-value {
-  border-left: 3px solid #e74c3c;
-}
-
-/* Para RUC */
-.ruc-section .result-title {
-  color: #27ae60;
-}
-
-.ruc-section .section-title {
-  color: #27ae60;
-  border-bottom-color: rgba(39, 174, 96, 0.3);
-}
-
-.ruc-section .data-label {
-  color: #27ae60;
-}
-
-.ruc-section .data-value {
-  border-left: 3px solid #27ae60;
-}
-
-/* Loader y errores */
-.loader {
-  text-align: center;
-  padding: 3rem 2rem;
-}
-
-.loader i {
-  font-size: 3rem;
-  color: #3498db;
-  animation: spin 1.5s linear infinite;
-  margin-bottom: 1.5rem;
-}
-
-@keyframes spin {
-  100% { transform: rotate(360deg); }
-}
-
-.error-message {
-  color: #e74c3c;
-  font-weight: 500;
-  text-align: center;
-  padding: 3rem 2rem;
-}
-
-.error-message i {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  display: block;
-}
-
-/* Responsive para resultados */
-@media (max-width: 768px) {
-  #resultsContainer {
-    padding: 25px 20px;
-  }
-  
-  .result-title {
-    font-size: 1.7rem;
-  }
-  
-  .section-title {
-    font-size: 1.3rem;
-  }
-  
-  .data-label {
-    font-size: 1rem;
-  }
-  
-  .data-value {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  #resultsContainer {
-    padding: 20px 15px;
-    border-radius: 12px;
-  }
-  
-  .result-title {
-    font-size: 1.5rem;
-  }
-  
-  .section-title {
-    font-size: 1.2rem;
-  }
-  
-  .data-list {
-    gap: 20px;
-  }
-  
-  .data-value {
-    padding: 8px;
-  }
-}
+  <script>
+    // Elementos DOM
+    const menu = document.querySelector('.menu-icon');
+    const linksDiv = document.querySelector('.links-div');
+    const searchInput = document.getElementById('searchInput');
+    const searchIcon = document.getElementById('searchIcon');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const notification = document.getElementById('notification');
+    const apiCards = document.querySelectorAll('.api-card');
+    
+    // Toggle del menú
+    menu.addEventListener('click', () => {
+      linksDiv.classList.toggle('active');
+      menu.classList.toggle('fa-bars');
+      menu.classList.toggle('fa-times');
+    });
+    
+    // Mostrar notificación
+    function showNotification(message, isError = true) {
+      notification.textContent = message;
+      notification.style.background = isError ? '#e74c3c' : '#2ecc71';
+      notification.style.display = 'block';
+      
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+    
+    // Función para mostrar resultados
+    function showResults(data, isRUC) {
+      resultsContainer.innerHTML = '';
+      
+      if (isRUC) {
+        // Formatear dirección
+        const direccion = data.direccion
+          .replace(/\./g, '')
+          .replace(/,,/g, ',')
+          .replace(/\s+/g, ' ')
+          .trim();
+        
+        resultsContainer.innerHTML = `
+          <div class="result-header ruc-section">
+            <h2 class="result-title">${data.razon_social}</h2>
+            <div class="result-type">RUC: ${data.ruc}</div>
+          </div>
+          
+          <div class="data-section">
+            <h3 class="section-title">Información de la Empresa</h3>
+            <div class="data-list">
+              <div class="data-item">
+                <span class="data-label">Razón Social</span>
+                <span class="data-value">${data.razon_social}</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Dirección</span>
+                <span class="data-value">${direccion}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        // Para DNI - usando la estructura correcta de tu API
+        resultsContainer.innerHTML = `
+          <div class="result-header dni-section">
+            <h2 class="result-title">${data.paterno} ${data.materno}</h2>
+            <div class="result-type">DNI: ${data.dni}</div>
+          </div>
+          
+          <div class="data-section">
+            <h3 class="section-title">Datos Personales</h3>
+            <div class="data-list">
+              <div class="data-item">
+                <span class="data-label">Nombres</span>
+                <span class="data-value">${data.nombres}</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Apellido Paterno</span>
+                <span class="data-value">${data.paterno}</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">Apellido Materno</span>
+                <span class="data-value">${data.materno}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Botón para nueva búsqueda
+      const footer = document.createElement('div');
+      footer.className = 'result-footer';
+      footer.innerHTML = `
+        <button class="new-search-btn" id="newSearchBtn">
+          <i class="fas fa-search"></i> Nueva Búsqueda
+        </button>
+      `;
+      resultsContainer.appendChild(footer);
+      
+      // Evento para el nuevo botón
+      document.getElementById('newSearchBtn').addEventListener('click', () => {
+        searchInput.value = '';
+        searchInput.focus();
+        resultsContainer.style.display = 'none';
+      });
+      
+      resultsContainer.style.display = 'block';
+    }
+    
+    // Función para mostrar errores
+    function showError(message) {
+      resultsContainer.innerHTML = `
+        <div class="error-message">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p>${message}</p>
+        </div>
+      `;
+      resultsContainer.style.display = 'block';
+    }
+    
+    // Función para mostrar carga
+    function showLoader() {
+      resultsContainer.innerHTML = `
+        <div class="loader">
+          <i class="fas fa-spinner"></i>
+          <p>Buscando información...</p>
+        </div>
+      `;
+      resultsContainer.style.display = 'block';
+    }
+    
+    // Función para buscar datos con APIs reales
+    async function searchData() {
+      const query = searchInput.value.trim();
+      
+      // Validaciones
+      if (!query) {
+        showError('Por favor ingrese un RUC o DNI');
+        showNotification('❌ Ingrese un RUC o DNI', true);
+        return;
+      }
+      
+      if (!/^\d+$/.test(query)) {
+        showError('Solo se permiten números');
+        showNotification('❌ Solo se permiten números', true);
+        return;
+      }
+      
+      if (query.length !== 8 && query.length !== 11) {
+        showError('Debe ingresar 8 dígitos para DNI o 11 para RUC');
+        showNotification('❌ Longitud incorrecta (8 u 11 dígitos)', true);
+        return;
+      }
+      
+      showLoader();
+      showNotification('🔍 Buscando información...', false);
+      
+      try {
+        let apiUrl;
+        let isRUC = false;
+        
+        if (query.length === 8) {
+          // API para DNI
+          apiUrl = `https://fin-horrible-noon-nomination.trycloudflare.com/dni/${query}?token=3ee3448609423402769833bcc0e71bb9`;
+          isRUC = false;
+        } else {
+          // API para RUC
+          apiUrl = `https://surgical-reg-interaction-activists.trycloudflare.com/ruc/${query}?token=f97d84a6d8a22138f61ba4004c608dee`;
+          isRUC = true;
+        }
+        
+        const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Error en la respuesta del servidor');
+        }
+        
+        const data = await response.json();
+        
+        // Para DNI, la respuesta es directa, para RUC también
+        showResults(data, isRUC);
+        showNotification('✅ Resultados encontrados', false);
+      } catch (error) {
+        console.error('Error:', error);
+        showError(error.message || 'Error al conectar con el servidor');
+        showNotification('❌ ' + error.message, true);
+      }
+    }
+    
+    // Evento para tarjetas de API
+    apiCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const service = card.getAttribute('data-service');
+        let message;
+        
+        // Mensaje específico para Api Sunat
+        if (service === "Api Sunat") {
+          message = "Hola, estoy interesado en el servicio /ruc";
+        } else {
+          message = `Hola, estoy interesado en el servicio ${service}`;
+        }
+        
+        window.open(`https://wa.me/51947160549?text=${encodeURIComponent(message)}`, '_blank');
+      });
+    });
+    
+    // Eventos
+    searchIcon.addEventListener('click', searchData);
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        searchData();
+      }
+    });
+    
+    // Cerrar resultados al hacer clic fuera
+    document.addEventListener('click', (e) => {
+      if (!resultsContainer.contains(e.target) && 
+          !searchInput.contains(e.target) && 
+          !searchIcon.contains(e.target)) {
+        resultsContainer.style.display = 'none';
+      }
+    });
+    
+    // Focus en el input al cargar la página
+    window.addEventListener('load', () => {
+      searchInput.focus();
+    });
+  </script>
+</body>
+</html>
